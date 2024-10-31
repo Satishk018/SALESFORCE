@@ -1,0 +1,19 @@
+public class VehicleBookingHandler {
+    public static void sendEmailNotification(List<Vehicle_Booking__c> vehicleList) {
+        for (Vehicle_Booking__c vehicle : vehicleList) {
+            Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+            email.setToAddresses(new List<String> { vehicle.Email__c });
+            email.setSubject('Welcome to our company');
+            
+            String body = 'Dear ' + vehicle.Name + ', \n';
+            body += 'Welcome to Vehicle Rentals! You have been seen as a valuable customer to us. \n';
+            body += 'Please continue your journey with us, while we try to provide you with good quality resources. \n';
+            body += 'Vehicle Amount: ' + vehicle.Amount__c + '\n';
+            body += 'Vehicle Model Type: ' + vehicle.Model_Type__c + '\n';
+            body += 'Total Number of vehicles: ' + vehicle.Total_No_Of_Vehicles__c + '\n';
+
+            email.setPlainTextBody(body);
+            Messaging.sendEmail(new List<Messaging.SingleEmailMessage> { email });
+        }
+    }
+}
