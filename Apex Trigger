@@ -1,0 +1,5 @@
+trigger VehicleBookingTrigger on Vehicle_Booking__c (after insert, after update) {
+    if (trigger.isAfter && (trigger.isInsert || trigger.isUpdate)) {
+        VehicleBookingHandler.sendEmailNotification(trigger.new);
+    }
+}
